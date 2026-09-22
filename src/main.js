@@ -52,19 +52,55 @@ function initSettings(){
 
 initOverlays();
 (function(){const r=$('#ruler');for(let i=1;i<10;i++){const t=document.createElement('i');t.className='tick';t.style.left=i*10+'%';r.appendChild(t);}})();
-initTracker();
-initPYQ();
-initAnswerWriting();
-initFlashcards();
-initRevision();
-initAnalytics();
-initNotesResources();
-initSearch();
-initMapPractice();
-renderTestHistory();
-initMockTest();
-initSyllabus();initProfile();initSettings();initTimer();initMCQ();initTimedTest();
-renderAll({enter:true});
-initRouter();
-initCloud();
-db.available().then(ok=>{if(!ok)console.info("Local study database unavailable; the ledger still works.");});
+
+function showBootError(err){
+  console.error('Humanities Study Hub boot error:',err);
+  const view=$('#view');
+  if(!view)return;
+  view.querySelectorAll('[data-view]').forEach(v=>{v.hidden=true;});
+  const section=document.createElement('section');
+  section.className='pane';
+  section.setAttribute('data-view','boot-error');
+  section.innerHTML='<span class="lbl">STARTUP ERROR</span><h2 class="pane-title">The study hub could not finish loading.</h2><p class="timer-intro">Your existing local progress has not been deleted. Refresh once; if the problem remains, open the browser console and send the red error message.</p><pre style="white-space:pre-wrap;overflow:auto;border:1px solid var(--line,#ccc);padding:12px">'+String(err?.stack||err?.message||err)+'</pre><button class="btn solid" type="button" id="bootReload">RELOAD HUB</button>';
+  view.appendChild(section);
+  $('#bootReload')?.addEventListener('click',()=>location.reload());
+}
+
+async function boot(){
+  try{
+    /* Keep the shell first: navigation must remain usable even if an optional feature
+       has a database/API problem during startup. */
+    initTracker();
+    initSyllabus();
+    initProfile();
+    initSettings();
+    initTimer();
+    initRouter();
+
+    /* Secondary modules are independent; one failure must not prevent the shell. */
+    const jobs=[
+      ['PYQ',initPYQ],
+      ['Answer writing',initAnswerWriting],
+      ['Flashcards',initFlashcards],
+      ['Revision',initRevision],
+      ['Analytics',initAnalytics],
+      ['Notes/resources',initNotesResources],
+      ['Search',initSearch],
+      ['Map practice',initMapPractice],
+      ['Test history',renderTestHistory],
+      ['Mock test',initMockTest],
+      ['MCQ',initMCQ],
+      ['Timed test',initTimedTest]
+    ];
+    const results=await Promise.allSettled(jobs.map(([,fn])=>fn()));
+    results.forEach((r,i)=>{if(r.status==='rejected')console.error(jobs[i][0]+' startup failed:',r.reason);});
+
+    renderAll({enter:true});
+    initCloud();
+    db.available().then(ok=>{if(!ok)console.info("Local study database unavailable; the ledger still works.");});
+  }catch(err){
+    showBootError(err);
+  }
+}
+
+boot();
