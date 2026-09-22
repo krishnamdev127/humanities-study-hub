@@ -8,5 +8,12 @@
   "background_color": "#f5f1e8",
   "theme_color": "#8b1e2d",
   "orientation": "portrait-primary",
-  "icons": []
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
