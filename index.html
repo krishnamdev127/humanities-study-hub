@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#8b1e2d">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#c2402a">
+<title>Humanities Study Hub — Class XII</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/ledger.css">
+<link rel="stylesheet" href="css/hub.css">
+</head>
+<body>
+
+<div class="sheet" id="app">
+
+  <header class="topbar">
+    <a class="brand" href="#/home"><i class="dot"></i>Humanities Study Hub</a>
+    <nav class="topnav" id="topnav" aria-label="Sections"></nav>
+    <div class="searchbox" role="search"><label class="sr-only" for="globalSearch">Search study hub</label><input id="globalSearch" type="search" placeholder="SEARCH / Ctrl K" autocomplete="off" aria-controls="searchResults"><div id="searchResults" class="search-results" hidden></div></div>
+    <button class="btn" id="editDetails" data-ic="gear">EDIT DETAILS</button>
+  </header>
+
+  <main id="view" tabindex="-1">
+
+    <!-- HOME -->
+    <section data-view="home" aria-label="Home">
+  <header class="mast">
+      <div class="mast-top">
+        <span class="tag"><i class="dot"></i>FORM BT-02 — CLASS XII (HUMANITIES) PREPARATION RECORD</span>
+        <span class="mast-right">
+          <span class="tag" id="todayLine"></span>
+        </span>
+      </div>
+      <div class="mast-main">
+        <div>
+          <span class="over" id="overLine"></span>
+          <h1>Preparation <em>Ledger</em></h1>
+          <p class="sub">History · Geography · Political Science · English · Hindi — five task boxes per chapter, extra revision rounds, and the countdown to the boards, kept the old-fashioned way.</p>
+        </div>
+        <div class="mast-cand">
+          <div class="fieldline">
+            <span class="lbl">CANDIDATE</span>
+            <button class="cand" id="candBtn" title="Click to edit details"></button>
+          </div>
+          <div class="fieldline">
+            <span class="lbl">FIRST EXAM</span>
+            <button class="fdate" id="dateBtn" title="Click to edit details"></button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+  <section class="band">
+      <div class="zone za">
+        <span class="lbl">DAYS UNTIL THE FIRST EXAMINATION</span>
+        <div class="big"><span class="dpre" id="daysPre"></span><span id="daysNum">—</span></div>
+        <span class="zsub" id="examDateLine"></span>
+      </div>
+      <div class="zone zb">
+        <span class="lbl">SYLLABUS COMPLETION</span>
+        <div class="big"><span id="readNum">0</span><span class="unit">%</span></div>
+        <div class="ruler" id="ruler"><i class="fill" id="rulerFill"></i></div>
+        <div class="zrow">
+          <span class="chip" id="readChip">—</span>
+          <span class="hint">A CHAPTER COUNTS WHEN ALL FIVE TASKS ARE TICKED</span>
+        </div>
+      </div>
+      <div class="zone zc">
+        <span class="lbl">AT A GLANCE</span>
+        <div class="lead"><span>Chapters completed</span><i></i><b id="glDone">—</b></div>
+        <div class="lead"><span>Task boxes ticked</span><i></i><b id="glTasks">—</b></div>
+        <div class="lead"><span>Extra revision rounds</span><i></i><b id="glRev">—</b></div>
+        <div class="lead"><span>Chapters still pending</span><i></i><b id="glPend">—</b></div>
+      </div>
+    </section>
+
+      <div class="jump">
+        <a class="btn solid" href="#/syllabus">OPEN THE SYLLABUS LEDGER</a>
+        <span class="hint">TICK CHAPTERS, LOG REVISIONS, FILTER WHAT IS PENDING</span>
+      </div>
+
+      <section id="hubDashboard" class="hub-dashboard" aria-label="Study command centre"></section>
+    </section>
+
+    <!-- SYLLABUS -->
+    <section data-view="syllabus" aria-label="Syllabus" hidden>
+      <div class="main">
+        <aside class="index">
+          <div class="idx-head lbl">INDEX — SUBJECT-WISE PROGRESS</div>
+          <div id="subjList"></div>
+        </aside>
+        <section class="board" id="board"></section>
+      </div>
+    </section>
+
+    <!-- STUDY / TIMER -->
+    <section data-view="study-timer" aria-label="Study timer" hidden>
+      <div class="pane timer-pane">
+        <span class="lbl">STUDY · FOCUS TIMER</span>
+        <h2 class="pane-title">Turn intention into a recorded session.</h2>
+        <p class="timer-intro">Choose what you are working on before you begin. When you stop, the session is saved to your local study record.</p>
+        <div id="timerApp"></div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section data-view="profile" aria-label="Profile" hidden>
+      <div class="pane">
+        <span class="lbl">PROFILE</span>
+        <h2 class="pane-title">Account, cloud and data</h2>
+        <div class="pane-grid">
+          <div class="data-block notification-block"><span class="lbl">OPTIONAL REMINDERS</span><p class="muted">Browser notifications are optional and only work when you grant permission. Study data never depends on them.</p><div class="databtns"><button class="btn" id="enableNotifications">ENABLE REMINDERS</button></div></div>
+          <div class="cloud-block">
+            <div class="cloud-top">
+              <span class="lbl">CLOUD RECORD</span>
+              <span class="cstat"><i class="cdot" id="cdot"></i><span id="cloudStatus">…</span></span>
+            </div>
+            <div class="chint" id="cloudHint"></div>
+            <div class="databtns">
+              <button class="btn" id="signInBtn"><span id="signInTxt">SIGN IN — GOOGLE</span></button>
+              <button class="btn hidden" id="signOutBtn">SIGN OUT</button>
+            </div>
+          </div>
+          <div class="data-block">
+            <span class="lbl">RECORD DATA</span>
+            <div class="databtns">
+              <button class="btn" data-act="export" data-ic="down">EXPORT</button>
+              <button class="btn" data-act="import" data-ic="up">IMPORT</button>
+              <button class="btn danger" data-act="reset">RESET</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MCQ PRACTICE -->
+    <section data-view="practice-mcqs" aria-label="MCQ practice" hidden>
+      <div class="pane">
+        <span class="lbl">PRACTICE · MCQ ENGINE</span>
+        <h2 class="pane-title">Practice concepts. Record every attempt.</h2>
+        <p class="timer-intro">These starter questions are explicitly labelled practice questions. Official CBSE PYQs will be added separately with verified year and source metadata.</p>
+        <div id="mcqApp"></div>
+      </div>
+    </section>
+
+    <!-- DAILY PYQ -->
+    <section data-view="practice-daily-pyq" aria-label="Daily PYQ" hidden>
+      <div class="pane">
+        <span class="lbl">PRACTICE · DAILY PYQ</span>
+        <h2 class="pane-title">One question. Every day.</h2>
+        <p class="timer-intro">Verified CBSE PYQs are shown only when their year and reference are stored. Otherwise the fallback is explicitly labelled practice.</p>
+        <div id="dailyPyqApp"></div>
+      </div>
+    </section>
+
+    <!-- PYQ BANK -->
+    <section data-view="practice-pyq-bank" aria-label="PYQ bank" hidden>
+      <div class="pane">
+        <span class="lbl">PRACTICE · CHAPTER-WISE PYQ BANK</span>
+        <h2 class="pane-title">Questions, sorted for revision.</h2>
+        <p class="timer-intro">Filter by subject, chapter, marks and provenance. Official attribution is never inferred.</p>
+        <div id="pyqBankApp"></div>
+      </div>
+    </section>
+
+    <!-- MOCK GENERATOR -->
+    <section data-view="tests-mock" aria-label="Mock generator" hidden>
+      <div class="pane">
+        <span class="lbl">TESTS · MOCK GENERATOR</span>
+        <h2 class="pane-title">Build a custom practice paper.</h2>
+        <p class="timer-intro">Choose the scope, difficulty, source and time limit. Generated papers are practice tests and are never represented as official CBSE examinations.</p>
+        <div id="mockTestApp"></div>
+      </div>
+    </section>
+
+    <!-- TIMED TEST -->
+    <section data-view="tests-quick" aria-label="Timed MCQ test" hidden>
+      <div class="pane">
+        <span class="lbl">TESTS · QUICK TEST</span>
+        <h2 class="pane-title">Timed MCQ test.</h2>
+        <p class="timer-intro">Choose the subject, question count, difficulty and time limit. The test auto-submits when the clock reaches zero.</p>
+        <div id="timedTestApp"></div>
+      </div>
+    </section>
+
+    <!-- ANSWER WRITING -->
+    <section data-view="practice-answer-writing" aria-label="Answer writing" hidden>
+      <div class="pane">
+        <span class="lbl">PRACTICE · ANSWER WRITING</span>
+        <h2 class="pane-title">Build answers under exam conditions.</h2>
+        <p class="timer-intro">Write, time yourself, count words and self-check the structure before saving the attempt. Any future AI feedback will be clearly identified as AI feedback, not official CBSE marking.</p>
+        <div id="answerWritingApp"></div>
+      </div>
+    </section>
+
+    <!-- FLASHCARDS -->
+    <section data-view="study-flashcards" aria-label="Flashcards" hidden>
+      <div class="pane"><span class="lbl">STUDY · FLASHCARDS</span><h2 class="pane-title">Recall first. Reveal second.</h2><p class="timer-intro">Review due cards and rate how well you remembered them. Your ratings shape the next review date.</p><div id="flashcardsApp"></div></div>
+    </section>
+
+    <!-- ACTIVE RECALL -->
+    <section data-view="study-recall" aria-label="Active recall" hidden>
+      <div class="pane"><span class="lbl">STUDY · ACTIVE RECALL</span><h2 class="pane-title">Retrieve the idea before you see it.</h2><p class="timer-intro">Active-recall prompts use the same flashcard data and review schedule.</p><div id="recallApp"></div></div>
+    </section>
+
+    <!-- SPACED REVISION -->
+    <section data-view="study-revision" aria-label="Spaced revision" hidden>
+      <div class="pane"><span class="lbl">STUDY · SPACED REVISION</span><h2 class="pane-title">A queue that remembers what you forget.</h2><p class="timer-intro">Due, overdue and upcoming reviews are calculated from your recall history.</p><div id="revisionApp"></div></div>
+    </section>
+
+    <!-- TEST HISTORY -->
+    <section data-view="tests-history" aria-label="Test history" hidden>
+      <div class="pane"><span class="lbl">TESTS · HISTORY</span><h2 class="pane-title">Every completed test, in one ledger.</h2><div id="testHistoryApp"></div></div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section data-view="analytics-performance" aria-label="Analytics" hidden><div class="pane"><span class="lbl">ANALYTICS · PERFORMANCE</span><h2 class="pane-title">Performance, measured over time.</h2><div class="analyticsApp"></div></div></section>
+    <section data-view="analytics-study-time" aria-label="Study time" hidden><div class="pane"><span class="lbl">ANALYTICS · STUDY TIME</span><h2 class="pane-title">Where your hours are going.</h2><div class="analyticsApp"></div></div></section>
+    <section data-view="analytics-progress" aria-label="Progress" hidden><div class="pane"><span class="lbl">ANALYTICS · PROGRESS</span><h2 class="pane-title">Progress across the whole preparation record.</h2><div class="analyticsApp"></div></div></section>
+    <section data-view="analytics-heatmap" aria-label="Heatmap" hidden><div class="pane"><span class="lbl">ANALYTICS · HEATMAP</span><h2 class="pane-title">Your study calendar.</h2><div class="analyticsApp"></div></div></section>
+
+    <!-- NOTES -->
+    <section data-view="study-notes" aria-label="Notes" hidden><div class="pane"><span class="lbl">STUDY · NOTES</span><h2 class="pane-title">Keep your preparation notes close to the chapter.</h2><p class="timer-intro">Simple notes, stored locally first and ready for cloud synchronization later.</p><div id="notesApp"></div></div></section>
+
+    <!-- RESOURCE LIBRARY -->
+    <section data-view="resources-ncert" aria-label="Resource library" hidden><div class="pane"><span class="lbl">RESOURCES · LIBRARY</span><h2 class="pane-title">Your study resources, in one place.</h2><p class="timer-intro">Links are saved locally. Use categories to keep NCERT, papers, maps and other resources organized.</p><div id="resourcesApp-ncert"></div></div></section>
+    <section data-view="resources-papers" aria-label="Papers resources" hidden><div class="pane"><span class="lbl">RESOURCES · PAPERS</span><h2 class="pane-title">Sample papers and practice papers.</h2><div id="resourcesApp-papers"></div></div></section>
+    <section data-view="resources-notes" aria-label="Note resources" hidden><div class="pane"><span class="lbl">RESOURCES · NOTES</span><h2 class="pane-title">External notes and study material.</h2><div id="resourcesApp-notes"></div></div></section>
+    <section data-view="resources-maps" aria-label="Map resources" hidden><div class="pane"><span class="lbl">RESOURCES · MAPS</span><h2 class="pane-title">Maps and location practice resources.</h2><div id="resourcesApp-maps"></div></div></section>
+
+    <!-- MAP PRACTICE -->
+    <section data-view="practice-maps" aria-label="Geography map practice" hidden><div class="pane"><span class="lbl">PRACTICE · GEOGRAPHY MAPS</span><h2 class="pane-title">Learn locations. Then test recall.</h2><p class="timer-intro">The starter catalogue is clearly labelled practice content. Add verified CBSE-specific map resources through the Resource Library rather than treating this as an official list.</p><div id="mapPracticeApp"></div></div></section>
+
+    <!-- modules that are not built yet -->
+    <section data-view="stub" hidden>
+      <div class="pane" id="stub"></div>
+    </section>
+
+  </main>
+
+  <footer class="totals">
+    <span id="totL"></span>
+    <span class="savenote" id="saveNote"><i class="dot"></i><span id="saveStatus">SAVED LOCALLY</span></span>
+    <span id="totR"></span>
+  </footer>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+
+<!-- settings modal -->
+<div class="overlay" id="mSettings">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Record details">
+    <div class="mhead"><span class="lbl">RECORD DETAILS</span>
+      <button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
+    <div class="mfield"><label class="lbl" for="fCand">CANDIDATE NAME (OPTIONAL)</label>
+      <input id="fCand" maxlength="60" placeholder="e.g. Aarav Sharma"></div>
+    <div class="mfield"><label class="lbl" for="fDate">EXPECTED FIRST BOARD EXAM DATE</label>
+      <input id="fDate" type="date"></div>
+    <div class="mrow">
+      <button class="btn" data-close>CANCEL</button>
+      <button class="btn solid" id="saveSettings">SAVE DETAILS</button>
+    </div>
+  </div>
+</div>
+
+<!-- confirm modal -->
+<div class="overlay" id="mConfirm">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="mhead"><span class="lbl" id="cfTitle">CONFIRM</span>
+      <button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
+    <p class="confirm-body" id="cfBody"></p>
+    <div class="mrow">
+      <button class="btn" data-close>CANCEL</button>
+      <button class="btn solid" id="cfOk">CONFIRM</button>
+    </div>
+  </div>
+</div>
+
+<!-- more sheet (mobile) -->
+<div class="overlay" id="mMore">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="More sections">
+    <div class="mhead"><span class="lbl">MORE</span>
+      <button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
+    <div class="morelist" id="moreList"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+<input type="file" id="fileInput" accept=".json,application/json" hidden>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module" src="src/main.js"></script>
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
+</body>
+</html>

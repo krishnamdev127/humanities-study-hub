@@ -1,0 +1,12 @@
+{
+  "name": "Humanities Study Hub",
+  "short_name": "Study Hub",
+  "description": "Class XII Humanities Preparation Ledger and Study Hub",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#8b1e2d",
+  "orientation": "portrait-primary",
+  "icons": []
+}

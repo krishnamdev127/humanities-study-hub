@@ -1,0 +1,12 @@
+{
+  "name": "humanities-study-hub",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "test": "node --test tests/db.test.js tests/tracker.test.js"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.0.0"
+  }
+}

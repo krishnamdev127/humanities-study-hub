@@ -1,0 +1,27 @@
+import {db} from '../../services/db.js';
+import {SUBJ_KEYS} from '../../data/syllabus.js';
+import {$,esc,toast} from '../../utils/dom.js';
+
+const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+let questions=[];
+const state={config:null,ids:[]};
+
+async function load(){questions=(await db.all('questions')).filter(q=>q.format==='mcq');}
+function matches(q,c){return (!c.subject||q.subject===c.subject)&&(!c.difficulty||q.difficulty===c.difficulty)&&(!c.chapter||q.chapter_id===c.chapter);}
+function render(root){root.innerHTML=`<div class="mock-builder"><div class="mock-config">
+<label><span class="lbl">SUBJECT</span><select data-subject><option value="">All subjects</option>${SUBJ_KEYS.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('')}</select></label>
+<label><span class="lbl">CHAPTER</span><select data-chapter><option value="">All chapters</option></select></label>
+<label><span class="lbl">QUESTIONS</span><select data-count><option>10</option><option selected>20</option><option>30</option><option>40</option></select></label>
+<label><span class="lbl">DIFFICULTY</span><select data-difficulty><option value="">Mixed</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></label>
+<label><span class="lbl">TIME LIMIT</span><select data-time><option value="1800">30 min</option><option value="2700" selected>45 min</option><option value="3600">60 min</option><option value="5400">90 min</option></select></label>
+<label><span class="lbl">SOURCE</span><select data-source><option value="">Mixed</option><option value="official_pyq">Verified PYQ</option><option value="practice">Practice</option><option value="ai_generated">AI-generated</option></select></label>
+</div><div class="mock-advanced"><label><span class="lbl">RANDOMIZE QUESTIONS</span><input type="checkbox" data-random checked></label><label><span class="lbl">RANDOMIZE OPTIONS</span><input type="checkbox" data-options checked></label></div><div class="mock-preview" data-preview></div><div class="mock-actions"><button class="btn" data-preview-btn>PREVIEW</button><button class="btn solid" data-generate>GENERATE MOCK</button></div><div data-result></div></div>`;
+const subj=root.querySelector('[data-subject]'),ch=root.querySelector('[data-chapter]');
+function chapters(){const seen=new Map();questions.filter(q=>!subj.value||q.subject===subj.value).forEach(q=>seen.set(q.chapter_id,q));ch.innerHTML='<option value="">All chapters</option>'+[...seen.values()].map(q=>`<option value="${esc(q.chapter_id)}">${esc(q.chapter_id)}</option>`).join('');}
+function summary(){const c=cfg(),pool=questions.filter(q=>matches(q,c)&&(!c.source||q.source===c.source));root.querySelector('[data-preview]').textContent=`${pool.length} matching questions · ${Math.min(c.count,pool.length)} selected · ${Math.round(c.time/60)} minutes · ${c.difficulty||'mixed'} difficulty · ${c.source||'mixed'} source`;}
+function cfg(){return {subject:subj.value,chapter:ch.value,count:Number(root.querySelector('[data-count]').value),difficulty:root.querySelector('[data-difficulty]').value,time:Number(root.querySelector('[data-time]').value),source:root.querySelector('[data-source]').value,random:root.querySelector('[data-random]').checked,options:root.querySelector('[data-options]').checked};}
+subj.onchange=()=>{chapters();summary()};ch.onchange=summary;root.querySelectorAll('select,input').forEach(x=>x.addEventListener('change',summary));chapters();summary();
+root.querySelector('[data-preview-btn]').onclick=()=>preview(root,cfg());root.querySelector('[data-generate]').onclick=()=>generate(root,cfg());}
+function preview(root,c){const pool=questions.filter(q=>matches(q,c)&&(!c.source||q.source===c.source));root.querySelector('[data-result]').innerHTML=`<div class="mock-list"><span class="lbl">PREVIEW</span>${shuffle(pool).slice(0,Math.min(c.count,8)).map((q,i)=>`<div><b>${i+1}. ${esc(q.text)}</b><small>${esc(q.subject)} · ${esc(q.difficulty)} · ${esc(q.source)}</small></div>`).join('')||'<p>No questions match these settings.</p>'}</div>`;}
+async function generate(root,c){const pool=questions.filter(q=>matches(q,c)&&(!c.source||q.source===c.source));if(!pool.length){toast('No questions match these settings');return;}if(pool.length<c.count)toast(`Only ${pool.length} matching questions are available`);const chosen=(c.random?shuffle(pool):pool).slice(0,c.count);state.config=c;state.ids=chosen.map(q=>q.id);const test=await db.put('tests',{name:`Custom Mock — ${c.subject||'Humanities'}`,type:'mock',config:{...c,generated_at:new Date().toISOString()},question_ids:state.ids,duration_sec:c.time,total_marks:chosen.reduce((s,q)=>s+Number(q.marks||1),0)});root.querySelector('[data-result]').innerHTML=`<div class="mock-list"><span class="lbl">MOCK GENERATED</span><h3>${esc(test.name)}</h3><p>${chosen.length} questions · ${Math.round(c.time/60)} minutes · ${test.total_marks} marks</p><div>${chosen.map((q,i)=>`<div><b>${i+1}. ${esc(q.text)}</b><small>${esc(q.subject)} · ${esc(q.difficulty)} · ${esc(q.source)}</small></div>`).join('')}</div><p class="mock-note">The generator stores the test definition locally. The full test-taking flow will use the same saved question IDs and attempt model.</p></div>`;toast('Mock test generated and saved locally');}
+export async function initMockTest(){const root=$('#mockTestApp');if(!root)return;await load();render(root);}
