@@ -92,10 +92,13 @@ async function boot(){
       ['MCQ',initMCQ],
       ['Timed test',initTimedTest]
     ];
+    /* Paint the ledger immediately. Database-backed modules can finish in the background. */
+    renderAll({enter:true});
+
     const results=await Promise.allSettled(jobs.map(([,fn])=>fn()));
     results.forEach((r,i)=>{if(r.status==='rejected')console.error(jobs[i][0]+' startup failed:',r.reason);});
 
-    renderAll({enter:true});
+    renderAll();
     initCloud();
     db.available().then(ok=>{if(!ok)console.info("Local study database unavailable; the ledger still works.");});
   }catch(err){
