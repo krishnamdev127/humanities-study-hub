@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="theme-color" content="#8b1e2d">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -235,11 +237,7 @@
     <!-- MAP PRACTICE -->
     <section data-view="practice-maps" aria-label="Geography map practice" hidden><div class="pane"><span class="lbl">PRACTICE · GEOGRAPHY MAPS</span><h2 class="pane-title">Learn locations. Then test recall.</h2><p class="timer-intro">The starter catalogue is clearly labelled practice content. Add verified CBSE-specific map resources through the Resource Library rather than treating this as an official list.</p><div id="mapPracticeApp"></div></div></section>
 
-    <!-- modules that are not built yet -->
-    <section data-view="stub" hidden>
-      <div class="pane" id="stub"></div>
-    </section>
-
+    <section data-view="stub" hidden><div class="pane" id="stub"></div></section>
   </main>
 
   <footer class="totals">
@@ -251,40 +249,26 @@
 
 <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
 
-<!-- settings modal -->
 <div class="overlay" id="mSettings">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Record details">
-    <div class="mhead"><span class="lbl">RECORD DETAILS</span>
-      <button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
-    <div class="mfield"><label class="lbl" for="fCand">CANDIDATE NAME (OPTIONAL)</label>
-      <input id="fCand" maxlength="60" placeholder="e.g. Aarav Sharma"></div>
-    <div class="mfield"><label class="lbl" for="fDate">EXPECTED FIRST BOARD EXAM DATE</label>
-      <input id="fDate" type="date"></div>
-    <div class="mrow">
-      <button class="btn" data-close>CANCEL</button>
-      <button class="btn solid" id="saveSettings">SAVE DETAILS</button>
-    </div>
+    <div class="mhead"><span class="lbl">RECORD DETAILS</span><button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
+    <div class="mfield"><label class="lbl" for="fCand">CANDIDATE NAME (OPTIONAL)</label><input id="fCand" maxlength="60" placeholder="e.g. Aarav Sharma"></div>
+    <div class="mfield"><label class="lbl" for="fDate">EXPECTED FIRST BOARD EXAM DATE</label><input id="fDate" type="date"></div>
+    <div class="mrow"><button class="btn" data-close>CANCEL</button><button class="btn solid" id="saveSettings">SAVE DETAILS</button></div>
   </div>
 </div>
 
-<!-- confirm modal -->
 <div class="overlay" id="mConfirm">
   <div class="modal" role="dialog" aria-modal="true">
-    <div class="mhead"><span class="lbl" id="cfTitle">CONFIRM</span>
-      <button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
+    <div class="mhead"><span class="lbl" id="cfTitle">CONFIRM</span><button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
     <p class="confirm-body" id="cfBody"></p>
-    <div class="mrow">
-      <button class="btn" data-close>CANCEL</button>
-      <button class="btn solid" id="cfOk">CONFIRM</button>
-    </div>
+    <div class="mrow"><button class="btn" data-close>CANCEL</button><button class="btn solid" id="cfOk">CONFIRM</button></div>
   </div>
 </div>
 
-<!-- more sheet (mobile) -->
 <div class="overlay" id="mMore">
   <div class="modal" role="dialog" aria-modal="true" aria-label="More sections">
-    <div class="mhead"><span class="lbl">MORE</span>
-      <button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
+    <div class="mhead"><span class="lbl">MORE</span><button class="mclose" data-close data-ic="x" aria-label="Close"></button></div>
     <div class="morelist" id="moreList"></div>
   </div>
 </div>
