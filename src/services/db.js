@@ -33,6 +33,10 @@ const MIGRATIONS=[
         else store.createIndex(ix.name,ix.path,{multiEntry:!!ix.multiEntry});
       }
     }
+  },
+  function v2(idb,tx){
+    const store=tx.objectStore("questions");
+    if(!store.indexNames.contains("topic_id"))store.createIndex("topic_id","topic_id");
   }
 ];
 if(MIGRATIONS.length!==SCHEMA_VERSION)throw new Error("SCHEMA_VERSION and MIGRATIONS are out of step");
