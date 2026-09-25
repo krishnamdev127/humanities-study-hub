@@ -10,7 +10,7 @@
      original LocalStorage keys; nothing here duplicates it.                                       */
 import {SUBJ_KEYS,chapterById} from './syllabus.js';
 
-export const SCHEMA_VERSION=1;
+export const SCHEMA_VERSION=2;
 
 export const SOURCES=["official_pyq","ai_generated","practice","user_created"];
 export const DIFFICULTY=["easy","medium","hard"];
@@ -58,14 +58,14 @@ export const COLLECTIONS={
     check:checkChapter},
 
   /* MCQs, short and long questions — the only place question text lives */
-  questions:{indexes:["subject","chapter_id","source","year",{name:"tags",path:"tags",multiEntry:true}],
+  questions:{indexes:["subject","chapter_id","source","year","topic_id",{name:"tags",path:"tags",multiEntry:true}],
     fields:{format:S({required:true,enum:FORMATS}),text:S({required:true,maxLen:4000}),
       options:A({of:"string"}),correct_index:I({min:0,max:3}),answer:S({maxLen:8000}),explanation:S({maxLen:4000}),
-      subject:SUBJECT({required:true}),chapter_id:CHAPTER({required:true}),
+      subject:SUBJECT({required:true}),chapter_id:CHAPTER({required:true}),topic_id:S({maxLen:120}),
       difficulty:S({required:true,enum:DIFFICULTY}),qtype:S({required:true,enum:QTYPES}),
       marks:N({required:true,min:0.5,max:100}),
       source:S({required:true,enum:SOURCES}),
-      year:I(),board:S(),reference:S({maxLen:500}),tags:A({of:"string"})},
+      year:I(),board:S(),reference:S({maxLen:500}),source_title:S({maxLen:300}),source_url:S({maxLen:2000}),syllabus_version:S({maxLen:40}),verified_at:T(),verified:B(),tags:A({of:"string"})},
     check:r=>{
       const e=checkChapter(r);
       if(r.format==="mcq"){
@@ -73,6 +73,7 @@ export const COLLECTIONS={
         if(!Number.isInteger(r.correct_index))e.push("an MCQ needs correct_index (0-3)");
       }
       /* Question provenance: an official year must never be invented. */
+      if(r.verified!=null&&typeof r.verified!=="boolean")e.push("verified must be boolean");
       if(r.source==="official_pyq"){
         if(!Number.isInteger(r.year)||r.year<1990||r.year>2100)e.push("official_pyq needs a real board year");
         if(!r.reference||!String(r.reference).trim())e.push("official_pyq needs a source/reference");
