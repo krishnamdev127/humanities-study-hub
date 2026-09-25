@@ -9,31 +9,17 @@ import {renderIndex,renderBoard,initSyllabus,resetFilter} from './features/sylla
 import {initProfile,updateAuthUI} from './features/profile/profile.js';
 import {initRouter} from './features/shell/router.js';
 import {initTimer} from './features/timer/timer.js';
-import {initMCQ} from './features/mcq/mcq.js';
-import {initTimedTest} from './features/tests/timed.js';
-import {initMockTest} from './features/tests/mock.js';
-import {initPYQ} from './features/pyq/pyq.js';
-import {initAnswerWriting} from './features/answer-writing.js';
-import {initFlashcards} from './features/flashcards/flashcards.js';
-import {initRevision} from './features/revision/revision.js';
-import {initAnalytics,renderTestHistory} from './features/analytics/analytics.js';
-import {initNotesResources} from './features/notes-resources.js';
-import {initSearch} from './features/search.js';
-import {initMapPractice} from './features/map-practice.js';
 
 function renderAll(fx){renderMast();renderBand();renderIndex();renderBoard(fx||{});renderTotals();renderHubDashboard();}
 function flashSave(){const sn=$('#saveNote');sn.classList.add('ping');setTimeout(()=>sn.classList.remove('ping'),900);}
 
-/* record changed on this device (tick, revision, details, import, reset) */
 bus.on('tracker:saved',fx=>{flashSave();renderAll(fx);});
-/* record replaced from the cloud */
 bus.on('tracker:replaced',fx=>{resetFilter();renderAll(fx);});
 bus.on('cloud:auth',()=>{updateAuthUI();renderAll();});
 bus.on('cloud:signedin',()=>toast('Signed in — cloud sync is active'));
-bus.on('study:changed',()=>{renderAll();renderTestHistory();});
+bus.on('study:changed',()=>{renderAll();});
 bus.on('cloud:sync',({state})=>{const el=$('#saveStatus');if(el)el.textContent=state==='syncing'?'SYNCING…':state==='synced'?'CLOUD SYNCED':'SAVED LOCALLY';});
 
-/* candidate name + exam date */
 function openSettings(){
   $('#fCand').value=getCandidate();
   $('#fDate').value=getExamDate();
@@ -68,8 +54,6 @@ function showBootError(err){
 
 async function boot(){
   try{
-    /* Keep the shell first: navigation must remain usable even if an optional feature
-       has a database/API problem during startup. */
     initTracker();
     initSyllabus();
     initProfile();
@@ -77,22 +61,26 @@ async function boot(){
     initTimer();
     initRouter();
 
-    /* Secondary modules are independent; one failure must not prevent the shell. */
+    /*
+      Optional feature modules are loaded dynamically. This is important:
+      a single broken optional import must never prevent main.js from evaluating,
+      so the shell, navigation and existing ledger can still start.
+    */
     const jobs=[
-      ['PYQ',initPYQ],
-      ['Answer writing',initAnswerWriting],
-      ['Flashcards',initFlashcards],
-      ['Revision',initRevision],
-      ['Analytics',initAnalytics],
-      ['Notes/resources',initNotesResources],
-      ['Search',initSearch],
-      ['Map practice',initMapPractice],
-      ['Test history',renderTestHistory],
-      ['Mock test',initMockTest],
-      ['MCQ',initMCQ],
-      ['Timed test',initTimedTest]
+      ['PYQ',()=>import('./features/pyq/pyq.js').then(m=>m.initPYQ())],
+      ['Answer writing',()=>import('./features/answer-writing.js').then(m=>m.initAnswerWriting())],
+      ['Flashcards',()=>import('./features/flashcards/flashcards.js').then(m=>m.initFlashcards())],
+      ['Revision',()=>import('./features/revision/revision.js').then(m=>m.initRevision())],
+      ['Analytics',()=>import('./features/analytics/analytics.js').then(m=>m.initAnalytics())],
+      ['Notes/resources',()=>import('./features/notes-resources.js').then(m=>m.initNotesResources())],
+      ['Search',()=>import('./features/search.js').then(m=>m.initSearch())],
+      ['Map practice',()=>import('./features/map-practice.js').then(m=>m.initMapPractice())],
+      ['Test history',()=>import('./features/analytics/analytics.js').then(m=>m.renderTestHistory())],
+      ['Mock test',()=>import('./features/tests/mock.js').then(m=>m.initMockTest())],
+      ['MCQ',()=>import('./features/mcq/mcq.js').then(m=>m.initMCQ())],
+      ['Timed test',()=>import('./features/tests/timed.js').then(m=>m.initTimedTest())]
     ];
-    /* Paint the ledger immediately. Database-backed modules can finish in the background. */
+
     renderAll({enter:true});
 
     const results=await Promise.allSettled(jobs.map(([,fn])=>fn()));
