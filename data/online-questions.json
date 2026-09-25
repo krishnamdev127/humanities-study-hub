@@ -1,0 +1,458 @@
+[
+  {
+    "id": "online-ps-01",
+    "format": "mcq",
+    "text": "The end of bipolarity in international politics led to an increase in ________.",
+    "options": [
+      "Proxy wars between super powers",
+      "Arms race between super powers",
+      "Multilateral diplomacy and cooperation",
+      "Bipolarity in international politics"
+    ],
+    "correct_index": 2,
+    "explanation": "This is the correct option in the CBSE Class XII Political Science 2025-26 sample paper.",
+    "subject": "Political Science",
+    "chapter_id": "polsci-01",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII Political Science SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/PolSci-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-ps-02",
+    "format": "mcq",
+    "text": "Agenda-21 is related to which one of the following?",
+    "options": [
+      "Rio Summit",
+      "Antarctic Treaty",
+      "Montreal Protocol",
+      "Antarctic Environmental Protocol"
+    ],
+    "correct_index": 0,
+    "explanation": "Agenda-21 was adopted in connection with the Rio Summit.",
+    "subject": "Political Science",
+    "chapter_id": "polsci-06",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII Political Science SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/PolSci-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-ps-03",
+    "format": "mcq",
+    "text": "In the traditional view of security, most threats to a country's security come from ________.",
+    "options": [
+      "Inside its borders",
+      "Outside its borders",
+      "International organisations only",
+      "Economic institutions only"
+    ],
+    "correct_index": 1,
+    "explanation": "The traditional security perspective primarily treats external threats as the major concern.",
+    "subject": "Political Science",
+    "chapter_id": "polsci-05",
+    "difficulty": "medium",
+    "qtype": "conceptual",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII Political Science SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/PolSci-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-history-01",
+    "format": "mcq",
+    "text": "Which site is identified as the correct answer to Question 1 in the CBSE Class XII History 2025-26 marking scheme?",
+    "options": [
+      "Lothal",
+      "Pataliputra",
+      "Taxila",
+      "Sanchi"
+    ],
+    "correct_index": 0,
+    "explanation": "The official marking scheme gives Lothal as the answer to Question 1.",
+    "subject": "History",
+    "chapter_id": "history-01",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII History Marking Scheme 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/History-MS.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-history-02",
+    "format": "mcq",
+    "text": "Which specialists are identified as the answer to Question 2 in the CBSE Class XII History 2025-26 marking scheme?",
+    "options": [
+      "Archaeo-botanists",
+      "Numismatists",
+      "Epigraphists",
+      "Anthropologists"
+    ],
+    "correct_index": 0,
+    "explanation": "The official marking scheme gives Archaeo-botanists as the answer to Question 2.",
+    "subject": "History",
+    "chapter_id": "history-01",
+    "difficulty": "medium",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII History Marking Scheme 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/History-MS.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-history-03",
+    "format": "mcq",
+    "text": "Which text is given as the answer to Question 5 in the CBSE Class XII History 2025-26 marking scheme?",
+    "options": [
+      "Manusmriti",
+      "Arthashastra",
+      "Indica",
+      "Rajatarangini"
+    ],
+    "correct_index": 0,
+    "explanation": "The official marking scheme gives Manusmriti as the answer to Question 5.",
+    "subject": "History",
+    "chapter_id": "history-03",
+    "difficulty": "medium",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII History Marking Scheme 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/History-MS.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-geo-01",
+    "format": "mcq",
+    "text": "In the CBSE Class XII Geography 2025-26 sample paper, Section A contains how many multiple-choice questions?",
+    "options": [
+      "10",
+      "12",
+      "17",
+      "20"
+    ],
+    "correct_index": 2,
+    "explanation": "The Geography sample paper states that Questions 1 to 17 in Section A are MCQs carrying 1 mark each.",
+    "subject": "Geography",
+    "chapter_id": "geography-01",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII Geography SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/Geography-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-geo-02",
+    "format": "mcq",
+    "text": "In the CBSE Class XII Geography 2025-26 sample paper, map-based questions are placed in which section?",
+    "options": [
+      "Section A",
+      "Section B",
+      "Section C",
+      "Section E"
+    ],
+    "correct_index": 3,
+    "explanation": "The sample paper identifies Section E as the map-based section.",
+    "subject": "Geography",
+    "chapter_id": "geography-09",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII Geography SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/Geography-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-geo-03",
+    "format": "mcq",
+    "text": "The 2025-26 Geography sample paper is for a maximum of how many marks?",
+    "options": [
+      "70",
+      "80",
+      "90",
+      "100"
+    ],
+    "correct_index": 0,
+    "explanation": "The official sample paper specifies a maximum of 70 marks.",
+    "subject": "Geography",
+    "chapter_id": "geography-01",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII Geography SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/Geography-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-eng-01",
+    "format": "mcq",
+    "text": "The 2025-26 CBSE English Core sample paper contains which three sections?",
+    "options": [
+      "Reading Skills, Creative Writing Skills, Literature",
+      "Reading, Grammar, Translation",
+      "Literature, Speaking, Listening",
+      "Writing, Grammar, Vocabulary"
+    ],
+    "correct_index": 0,
+    "explanation": "The official sample paper divides English Core into Reading Skills, Creative Writing Skills and Literature.",
+    "subject": "English",
+    "chapter_id": "english-01",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII English Core SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/EnglishCore-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-eng-02",
+    "format": "mcq",
+    "text": "What is the maximum mark of the CBSE Class XII English Core 2025-26 sample paper?",
+    "options": [
+      "70",
+      "75",
+      "80",
+      "100"
+    ],
+    "correct_index": 2,
+    "explanation": "The official English Core sample paper is for 80 marks.",
+    "subject": "English",
+    "chapter_id": "english-01",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII English Core SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/EnglishCore-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-eng-03",
+    "format": "mcq",
+    "text": "In the English Core 2025-26 sample paper, which section carries the Literature questions?",
+    "options": [
+      "Section A",
+      "Section B",
+      "Section C",
+      "All sections equally"
+    ],
+    "correct_index": 2,
+    "explanation": "The sample paper identifies Section C as Literature.",
+    "subject": "English",
+    "chapter_id": "english-01",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Class XII English Core SQP 2025-26: https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/EnglishCore-SQP.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-sqp-2025-26"
+    ]
+  },
+  {
+    "id": "online-hin-01",
+    "format": "mcq",
+    "text": "हिंदी कोर 2025-26 के पाठ्यक्रम में प्रश्न-पत्र कितने खंडों में विभाजित है?",
+    "options": [
+      "दो",
+      "तीन",
+      "चार",
+      "पाँच"
+    ],
+    "correct_index": 1,
+    "explanation": "CBSE के पाठ्यक्रम के अनुसार हिंदी (आधार) का प्रश्न-पत्र खंड-क, ख और ग में होगा।",
+    "subject": "Hindi",
+    "chapter_id": "hindi-20",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Hindi Core curriculum 2025-26: https://cbseacademic.nic.in/web_material/CurriculumMain26/SrSec/Hindi_Core_SrSec_2025-26.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-2025-26"
+    ]
+  },
+  {
+    "id": "online-hin-02",
+    "format": "mcq",
+    "text": "हिंदी कोर 2025-26 में खंड-क मुख्यतः किस पर आधारित है?",
+    "options": [
+      "अपठित बोध",
+      "केवल व्याकरण",
+      "केवल लेखन",
+      "केवल साहित्यिक इतिहास"
+    ],
+    "correct_index": 0,
+    "explanation": "खंड-क में अपठित बोध पर आधारित प्रश्न पूछे जाएंगे।",
+    "subject": "Hindi",
+    "chapter_id": "hindi-20",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Hindi Core curriculum 2025-26: https://cbseacademic.nic.in/web_material/CurriculumMain26/SrSec/Hindi_Core_SrSec_2025-26.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-2025-26"
+    ]
+  },
+  {
+    "id": "online-hin-03",
+    "format": "mcq",
+    "text": "हिंदी कोर 2025-26 के वार्षिक परीक्षा हेतु कुल भारांक कितना है?",
+    "options": [
+      "70",
+      "75",
+      "80",
+      "100"
+    ],
+    "correct_index": 2,
+    "explanation": "The official curriculum specifies 80 marks for the annual examination.",
+    "subject": "Hindi",
+    "chapter_id": "hindi-20",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "Based on CBSE Hindi Core curriculum 2025-26: https://cbseacademic.nic.in/web_material/CurriculumMain26/SrSec/Hindi_Core_SrSec_2025-26.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-2025-26"
+    ]
+  },
+  {
+    "id": "online-mix-01",
+    "format": "mcq",
+    "text": "Which CBSE Class XII resource page lists Sample Question Papers and Marking Schemes for 2025-26 across subjects?",
+    "options": [
+      "Class XII SQP and MS page",
+      "Admissions portal",
+      "Results portal",
+      "Scholarship portal"
+    ],
+    "correct_index": 0,
+    "explanation": "CBSE's Class XII 2025-26 academic page lists subject-wise SQP and MS resources.",
+    "subject": "Political Science",
+    "chapter_id": "polsci-04",
+    "difficulty": "easy",
+    "qtype": "standard",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "CBSE Academics Class XII SQP/MS 2025-26: https://cbseacademic.nic.in/SQP_CLASSXII_2025-26.html",
+    "tags": [
+      "online-feed",
+      "cbse-official"
+    ]
+  },
+  {
+    "id": "online-mix-02",
+    "format": "mcq",
+    "text": "CBSE's previous-year question paper page provides Class XII examination papers for subjects including History, Geography, English Core, Hindi Core and Political Science.",
+    "options": [
+      "True",
+      "False",
+      "Only for Class X",
+      "Only for vocational subjects"
+    ],
+    "correct_index": 0,
+    "explanation": "The CBSE question-paper page lists Class XII subject papers, including the Humanities subjects in the hub.",
+    "subject": "History",
+    "chapter_id": "history-12",
+    "difficulty": "easy",
+    "qtype": "conceptual",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "CBSE Previous Years' Question Papers: https://www.cbse.gov.in/cbsenew/question-paper.html",
+    "tags": [
+      "online-feed",
+      "cbse-official"
+    ]
+  },
+  {
+    "id": "online-mix-03",
+    "format": "mcq",
+    "text": "CBSE states that its Sample Question Papers are intended to provide a broad template and guide coverage of the curriculum.",
+    "options": [
+      "True",
+      "False",
+      "Only for internal assessment",
+      "Only for teachers"
+    ],
+    "correct_index": 0,
+    "explanation": "This is stated in CBSE's notification about the 2025-26 sample papers.",
+    "subject": "Geography",
+    "chapter_id": "geography-01",
+    "difficulty": "easy",
+    "qtype": "conceptual",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "CBSE notification on Sample Question Papers 2025-26: https://cbseacademic.nic.in/web_material/Notifications/2025/66_Notification_2025.pdf",
+    "tags": [
+      "online-feed",
+      "cbse-official"
+    ]
+  },
+  {
+    "id": "online-mix-04",
+    "format": "mcq",
+    "text": "Which source should the hub use when it labels a question as an official CBSE PYQ?",
+    "options": [
+      "A verified CBSE question-paper reference",
+      "An unverified social-media post",
+      "A model-generated question",
+      "A memory-based question with no source"
+    ],
+    "correct_index": 0,
+    "explanation": "The hub's data rules require a verified year and source/reference for official_pyq records.",
+    "subject": "History",
+    "chapter_id": "history-01",
+    "difficulty": "easy",
+    "qtype": "conceptual",
+    "marks": 1,
+    "source": "ai_generated",
+    "reference": "CBSE Previous Years' Question Papers: https://www.cbse.gov.in/cbsenew/question-paper.html",
+    "tags": [
+      "online-feed",
+      "provenance"
+    ]
+  }
+]
