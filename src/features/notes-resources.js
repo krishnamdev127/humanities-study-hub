@@ -1,11 +1,12 @@
 import {db} from '../services/db.js';
 import {bus} from '../utils/bus.js';
 import {$,esc,toast} from '../utils/dom.js';
-import {SUBJECTS,CHAPTERS} from '../data/syllabus.js';
+import {SUBJECTS,allChapters} from '../data/syllabus.js';
 
-const subjects=SUBJECTS||[]; const chapters=CHAPTERS||[];
-const subjectOptions=()=>subjects.map(s=>`<option value="${esc(s.key||s.id)}">${esc(s.name||s.label)}</option>`).join('');
-const chapterOptions=(subject='')=>chapters.filter(c=>!subject||c.subject===subject).map(c=>`<option value="${esc(c.id)}">${esc(c.title||c.name)}</option>`).join('');
+const subjects=Object.keys(SUBJECTS).map(name=>({id:name,name}));
+const chapters=allChapters();
+const subjectOptions=()=>subjects.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
+const chapterOptions=(subject='')=>chapters.filter(c=>!subject||c.subject===subject).map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
 
 async function notesView(){
  const root=$('#notesApp'); const rows=await db.all('notes');
