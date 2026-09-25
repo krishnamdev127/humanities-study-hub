@@ -1,4 +1,5 @@
 import {db} from '../../services/db.js';
+import {ensureQuestionBank} from '../../services/question-bank.js';
 import {SUBJ_KEYS} from '../../data/syllabus.js';
 import {$,esc,toast} from '../../utils/dom.js';
 
@@ -7,7 +8,7 @@ const state={test:null,attempt:null,answers:{},flagged:new Set(),index:0,timer:n
 const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
 
-async function load(){questions=await db.all('questions');}
+async function load(){questions=(await ensureQuestionBank()).filter(q=>q.format==='mcq');}
 function pool(){return questions.filter(q=>q.format==='mcq' && (!state.test?.subject || q.subject===state.test.subject));}
 function renderSetup(root){root.innerHTML=`
 <div class="test-toolbar"><div><span class="lbl">TIMED MCQ TEST</span><h3 class="test-title">Build a focused test and work against the clock.</h3></div></div>
