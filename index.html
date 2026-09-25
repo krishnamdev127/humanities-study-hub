@@ -22,7 +22,6 @@
   <header class="topbar">
     <a class="brand" href="#/home"><i class="dot"></i>Humanities Study Hub</a>
     <nav class="topnav" id="topnav" aria-label="Sections"></nav>
-    <div class="searchbox" role="search"><label class="sr-only" for="globalSearch">Search study hub</label><input id="globalSearch" type="search" placeholder="SEARCH / Ctrl K" autocomplete="off" aria-controls="searchResults"><div id="searchResults" class="search-results" hidden></div></div>
     <button class="btn" id="editDetails" data-ic="gear">EDIT DETAILS</button>
   </header>
 
@@ -228,11 +227,8 @@
     <!-- NOTES -->
     <section data-view="study-notes" aria-label="Notes" hidden><div class="pane"><span class="lbl">STUDY · NOTES</span><h2 class="pane-title">Keep your preparation notes close to the chapter.</h2><p class="timer-intro">Simple notes, stored locally first and ready for cloud synchronization later.</p><div id="notesApp"></div></div></section>
 
-    <!-- RESOURCE LIBRARY -->
-    <section data-view="resources-ncert" aria-label="Resource library" hidden><div class="pane"><span class="lbl">RESOURCES · LIBRARY</span><h2 class="pane-title">Your study resources, in one place.</h2><p class="timer-intro">Links are saved locally. Use categories to keep NCERT, papers, maps and other resources organized.</p><div id="resourcesApp-ncert"></div></div></section>
-    <section data-view="resources-papers" aria-label="Papers resources" hidden><div class="pane"><span class="lbl">RESOURCES · PAPERS</span><h2 class="pane-title">Sample papers and practice papers.</h2><div id="resourcesApp-papers"></div></div></section>
-    <section data-view="resources-notes" aria-label="Note resources" hidden><div class="pane"><span class="lbl">RESOURCES · NOTES</span><h2 class="pane-title">External notes and study material.</h2><div id="resourcesApp-notes"></div></div></section>
-    <section data-view="resources-maps" aria-label="Map resources" hidden><div class="pane"><span class="lbl">RESOURCES · MAPS</span><h2 class="pane-title">Maps and location practice resources.</h2><div id="resourcesApp-maps"></div></div></section>
+    <!-- COMPLETE RESOURCE LIBRARY -->
+    <section data-view="resources" aria-label="Complete resource library" hidden><div class="pane"><span class="lbl">RESOURCES · COMPLETE LIBRARY</span><h2 class="pane-title">Everything you need for Class XII Humanities.</h2><p class="timer-intro">Official CBSE sources first. Your own links can be added below. No resource is presented as an official question unless it has a verified source.</p><div id="resourcesApp"></div></div></section>
 
     <!-- MAP PRACTICE -->
     <section data-view="practice-maps" aria-label="Geography map practice" hidden><div class="pane"><span class="lbl">PRACTICE · GEOGRAPHY MAPS</span><h2 class="pane-title">Learn locations. Then test recall.</h2><p class="timer-intro">The starter catalogue is clearly labelled practice content. Add verified CBSE-specific map resources through the Resource Library rather than treating this as an official list.</p><div id="mapPracticeApp"></div></div></section>
