@@ -1,28 +1,30 @@
 import {db} from '../services/db.js';
 import {bus} from '../utils/bus.js';
 import {$,esc,toast} from '../utils/dom.js';
-import {SUBJECTS,allChapters} from '../data/syllabus.js';
+import {SUBJECTS} from '../data/syllabus.js';
 
-const subjects=Object.keys(SUBJECTS).map(name=>({id:name,name}));
-const chapters=allChapters();
-const subjectOptions=()=>subjects.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
-const chapterOptions=(subject='')=>chapters.filter(c=>!subject||c.subject===subject).map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+const subjects=Object.keys(SUBJECTS);
+const official=[
+ ['CBSE Class XII Sample Papers & Marking Schemes 2025-26','Official CBSE subject-wise SQP and MS page','https://cbseacademic.nic.in/SQP_CLASSXII_2025-26.html','sample_papers'],
+ ['CBSE Previous Years Question Papers','Official CBSE archive of previous examination papers','https://www.cbse.gov.in/cbsenew/question-paper.html','pyqs'],
+ ['CBSE Academic Curriculum 2025-26','Official Senior Secondary curriculum and subject documents','https://cbseacademic.nic.in/curriculum_2026.html','ncert'],
+ ['NCERT Textbooks','Official NCERT textbook portal','https://ncert.nic.in/textbook.php','ncert'],
+ ['CBSE Sample Paper Notification 2025-26','Official notification explaining the SQP/MS release','https://cbseacademic.nic.in/web_material/Notifications/2025/66_Notification_2025.pdf','sample_papers'],
+ ['CBSE Academic Main Portal','Official CBSE Academic website','https://cbseacademic.nic.in/','other']
+];
 
-async function notesView(){
- const root=$('#notesApp'); const rows=await db.all('notes');
- root.innerHTML=`<div class="toolrow"><input id="noteSearch" class="field" placeholder="Search notes…"><select id="noteSubject" class="field"><option value="">All subjects</option>${subjectOptions()}</select><button class="btn solid" id="newNote">NEW NOTE</button></div><div class="notegrid" id="noteGrid"></div><div class="noteeditor" id="noteEditor" hidden></div>`;
- const render=()=>{const q=$('#noteSearch').value.toLowerCase(),s=$('#noteSubject').value;const data=rows.filter(n=>(!s||n.subject===s)&&(!q||`${n.title} ${n.body} ${(n.tags||[]).join(' ')}`.toLowerCase().includes(q))).sort((a,b)=>(b.pinned-a.pinned)||(b.updated_at||'').localeCompare(a.updated_at||''));$('#noteGrid').innerHTML=data.length?data.map(n=>`<article class="study-card"><div class="cardtop"><span class="lbl">${esc(n.subject||'GENERAL')}</span>${n.pinned?'<span class="chip">PINNED</span>':''}</div><h3>${esc(n.title)}</h3><p>${esc((n.body||'').slice(0,240))}</p><div class="cardactions"><button class="btn" data-edit="${n.id}">EDIT</button><button class="btn" data-pin="${n.id}">${n.pinned?'UNPIN':'PIN'}</button><button class="btn danger" data-del="${n.id}">DELETE</button></div></article>`).join(''):`<div class="empty"><h3>No notes yet.</h3><p>Create your first chapter note. Notes are saved on this device immediately.</p></div>`};
- render();
- $('#noteSearch').oninput=render; $('#noteSubject').onchange=render;
- $('#newNote').onclick=()=>edit();
- $('#noteGrid').onclick=async e=>{const id=e.target.dataset.edit||e.target.dataset.pin||e.target.dataset.del;if(!id)return;const n=rows.find(x=>x.id===id);if(e.target.dataset.edit)edit(n);else if(e.target.dataset.pin){await db.update('notes',id,{pinned:!n.pinned});await notesView();}else{if(confirm('Delete this note?')){await db.remove('notes',id);await notesView();}}};
- async function edit(n={}){const ed=$('#noteEditor');ed.hidden=false;ed.innerHTML=`<div class="editorbox"><div class="toolrow"><input id="ntitle" class="field" value="${esc(n.title||'')}" placeholder="Note title"><select id="nsub" class="field"><option value="">Subject</option>${subjectOptions()}</select><select id="nchap" class="field"><option value="">Chapter (optional)</option>${chapterOptions(n.subject)}</select></div><textarea id="nbody" class="field" rows="12" placeholder="Write your notes…">${esc(n.body||'')}</textarea><input id="ntags" class="field" value="${esc((n.tags||[]).join(', '))}" placeholder="Tags, comma separated"><div class="cardactions"><button class="btn" id="cancelNote">CANCEL</button><button class="btn solid" id="saveNote2">SAVE NOTE</button></div></div>`;$('#nsub').value=n.subject||'';$('#nchap').value=n.chapter_id||'';$('#nsub').onchange=()=>{$('#nchap').innerHTML='<option value="">Chapter (optional)</option>'+chapterOptions($('#nsub').value)};$('#cancelNote').onclick=()=>ed.hidden=true;$('#saveNote2').onclick=async()=>{const title=$('#ntitle').value.trim();if(!title){toast('Add a title first');return;}await db.put('notes',{...n,title,body:$('#nbody').value,subject:$('#nsub').value||undefined,chapter_id:$('#nchap').value||undefined,tags:$('#ntags').value.split(',').map(x=>x.trim()).filter(Boolean),pinned:!!n.pinned,favourite:!!n.favourite});toast('Note saved locally');await notesView();};}
+async function resourcesView(){
+ const root=$('#resourcesApp'); if(!root)return;
+ const rows=await db.all('resources');
+ const cards=official.map(r=>({title:r[0],note:r[1],url:r[2],category:r[3],official:true}));
+ const user=rows.map(r=>({...r,official:false}));
+ root.innerHTML=`<div class="resource-grid">${cards.map(card).join('')}${user.map(card).join('')}</div>
+ <div class="resource-add"><span class="lbl">YOUR RESOURCE LIBRARY</span><p class="muted">Add links for your coaching material, teacher notes, maps, question banks or other study material. These are always marked as your own saved resources.</p>
+ <div class="toolrow"><input id="resTitle" class="field" placeholder="Resource title"><input id="resUrl" class="field" placeholder="https://…"><select id="resCat" class="field">${['ncert','pyqs','sample_papers','notes','maps','question_banks','marking_schemes','other'].map(x=>`<option value="${x}">${x.replaceAll('_',' ').toUpperCase()}</option>`).join('')}</select><button class="btn solid" id="addRes">ADD RESOURCE</button></div></div>`;
+ root.querySelector('#addRes').onclick=async()=>{const title=root.querySelector('#resTitle').value.trim(),url=root.querySelector('#resUrl').value.trim(),category=root.querySelector('#resCat').value;if(!title||!url){toast('Add a title and URL first');return;}try{new URL(url)}catch{toast('Enter a valid http(s) URL');return;}await db.put('resources',{title,url,category,note:'User-added resource'});toast('Resource saved locally');resourcesView();};
 }
+function card(r){return `<article class="study-card"><div class="cardtop"><span class="lbl">${esc((r.category||'other').replaceAll('_',' '))}</span>${r.official?'<span class="chip">OFFICIAL CBSE / NCERT</span>':'<span class="chip">YOUR RESOURCE</span>'}</div><h3>${esc(r.title)}</h3><p>${esc(r.note||'')}</p><a class="btn solid" target="_blank" rel="noopener" href="${esc(r.url)}">OPEN RESOURCE</a>${r.official?'':'<button class="btn danger" data-del="'+esc(r.id)+'">DELETE</button>'}</article>`;}
 
-async function resourcesView(child='ncert'){
- const root=$('#resourcesApp-'+child); const rows=await db.all('resources');
- root.innerHTML=`<div class="toolrow"><input id="resSearch" class="field" placeholder="Search resources…"><select id="resCat" class="field"><option value="">All categories</option>${['ncert','pyqs','sample_papers','notes','maps','question_banks','marking_schemes','other'].map(x=>`<option value="${x}">${x.replaceAll('_',' ').toUpperCase()}</option>`).join('')}</select><button class="btn solid" id="newRes">ADD RESOURCE</button></div><div class="notegrid" id="resGrid"></div>`;
- const render=()=>{const q=$('#resSearch').value.toLowerCase(),c=$('#resCat').value;const data=rows.filter(r=>(!c||r.category===c)&&(!q||`${r.title} ${r.description||''} ${r.url||''}`.toLowerCase().includes(q)));$('#resGrid').innerHTML=data.length?data.map(r=>`<article class="study-card"><div class="cardtop"><span class="lbl">${esc((r.category||'other').replaceAll('_',' '))}</span>${r.subject?`<span class="chip">${esc(r.subject)}</span>`:''}</div><h3>${esc(r.title)}</h3><p>${esc(r.description||'')}</p>${r.url?`<a class="btn" target="_blank" rel="noopener" href="${esc(r.url)}">OPEN RESOURCE</a>`:''}<div class="cardactions"><button class="btn danger" data-del="${r.id}">DELETE</button></div></article>`).join(''):`<div class="empty"><h3>No resources yet.</h3><p>Add NCERT links, sample papers, maps or other study resources.</p></div>`};render();$('#resSearch').oninput=render;$('#resCat').onchange=render;$('#newRes').onclick=async()=>{const title=prompt('Resource title');if(!title)return;const url=prompt('Resource URL (optional)')||'';const category=prompt('Category: ncert, pyqs, sample_papers, notes, maps, question_banks, marking_schemes, other','other')||'other';if(!['ncert','pyqs','sample_papers','notes','maps','question_banks','marking_schemes','other'].includes(category)){toast('Unknown category');return;}await db.put('resources',{title:title.trim(),description:'',url,category,subject:undefined,chapter_id:undefined,pinned:false});toast('Resource saved locally');await resourcesView();};$('#resGrid').onclick=async e=>{if(e.target.dataset.del&&confirm('Delete this resource?')){await db.remove('resources',e.target.dataset.del);await resourcesView();}};
+export function initNotesResources(){
+ bus.on('route:changed',r=>{if(r.section==='resources')resourcesView();});
 }
-
-export function initNotesResources(){bus.on('route:changed',r=>{if(r.child==='notes'&&r.section==='study')notesView();if(r.section==='resources'&&['ncert','papers','notes','maps'].includes(r.child))resourcesView(r.child);});}
