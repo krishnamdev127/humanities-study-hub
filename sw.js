@@ -1,4 +1,4 @@
-const CACHE = 'humanities-study-hub-v19';
+const CACHE = 'humanities-study-hub-v20';
 const CORE = ['./', './index.html', './manifest.webmanifest', './favicon.svg', './src/main.js'];
 
 self.addEventListener('install', event => {
