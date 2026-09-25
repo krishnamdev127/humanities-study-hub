@@ -14,8 +14,7 @@ export const SECTIONS=[
     {...P('quick','Quick test',6),built:true},{...P('custom','Custom test',9),built:true},{...P('mock','Mock generator',9),built:true},{...P('simulator','Board simulator',10),built:true},{...P('history','Test history',6),built:true}]},
   {id:'analytics',label:'Analytics',mobile:'more',note:'Performance, study time, heatmap',children:[
     {...P('performance','Performance',14),built:true},{...P('study-time','Study time',14),built:true},{...P('progress','Progress',14),built:true},{...P('heatmap','Heatmap',14),built:true}]},
-  {id:'resources',label:'Resources',mobile:'more',note:'NCERT, papers, notes, maps',children:[
-    P('ncert','NCERT',16),P('papers','Papers',16),{...P('notes','Notes',16),built:true},P('maps','Maps',16)]},
+  {id:'resources',label:'Resources',view:'resources',built:true,mobile:'more',note:'NCERT, papers, PYQs, maps and official links'},
   {id:'profile',label:'Profile',view:'profile',built:true,mobile:'more',note:'Account, cloud sync and data'}
 ];
 
