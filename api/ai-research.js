@@ -1,14 +1,14 @@
 /* Vercel serverless boundary for AI-assisted curriculum research and question generation.
    LLM: NVIDIA NIM (GLM-5.3)
-   Search: DuckDuckGo web search adapter
-   Required server environment variable: NVIDIA_API_KEY
+   Search: LangSearch Web Search API
+   Required server environment variables: NVIDIA_API_KEY and LANGSEARCH_API_KEY
    The key is NEVER sent to the browser.
 
    Search is deliberately separated from the LLM so the provider can later be
    replaced by SearXNG or another SERP provider without changing the frontend.
 */
 
-import {searchWeb,OFFICIAL_DOMAINS} from "./lib/duckduckgo.js";
+import {searchWeb,OFFICIAL_DOMAINS} from "./lib/langsearch.js";
 
 const NVIDIA_BASE_URL="https://integrate.api.nvidia.com/v1";
 const NVIDIA_MODEL="z-ai/glm-5.3";
@@ -60,8 +60,8 @@ const buildResearchQuery=({subject,chapter,session})=>
 
 export default async function handler(req,res){
   if(req.method!=="POST")return json(res,405,{error:"POST required"});
-  if(!process.env.NVIDIA_API_KEY)
-    return json(res,503,{error:"AI service is not configured yet. Add NVIDIA_API_KEY to the server environment."});
+  if(!process.env.NVIDIA_API_KEY||!process.env.LANGSEARCH_API_KEY)
+    return json(res,503,{error:"AI service is not configured yet. Add NVIDIA_API_KEY and LANGSEARCH_API_KEY to the server environment."});
 
   const body=req.body||{};
   const {task}=body;
@@ -115,7 +115,7 @@ Keep every question strictly inside the requested subject/chapter/topic.`;
     return json(res,200,{
       ...parsed,
       research_used:true,
-      search_provider:"duckduckgo",
+      search_provider:"langsearch",
       llm_provider:"nvidia",
       model:NVIDIA_MODEL,
       source_results:researchContext
