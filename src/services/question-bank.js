@@ -12,6 +12,7 @@ const starter=[
  ['Hindi',0,'भक्तिन के चरित्र में प्रमुख रूप से कौन-सा गुण उभरता है?',['कर्मठता और आत्मसम्मान','आलस्य','अत्यधिक विलासिता','असामाजिकता'],0,'भक्तिन के जीवन-संघर्ष में कर्मठता और स्वाभिमान दिखाई देता है.'],
  ['Hindi',1,'बाजार दर्शन पाठ मुख्यतः किस प्रवृत्ति पर विचार करता है?',['बाजारवाद और उपभोक्ता मानसिकता','केवल कृषि उत्पादन','प्राकृतिक आपदा','ऐतिहासिक युद्ध'],0,'पाठ बाजार की आकर्षण-शक्ति और उपभोक्ता मानसिकता पर विचार करता है.']
 ];
+/* These legacy seed items are retained for compatibility. They are not a live web feed. */
 const online=[
  ['Political Science','polsci-01','The end of bipolarity in international politics led to an increase in ________.',['Proxy wars between super powers','Arms race between super powers','Multilateral diplomacy and cooperation','Bipolarity in international politics'],2,'Based on CBSE Class XII Political Science SQP 2025-26.','https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/PolSci-SQP.pdf'],
  ['Political Science','polsci-06','Agenda-21 is related to which one of the following?',['Rio Summit','Antarctic Treaty','Montreal Protocol','Antarctic Environmental Protocol'],0,'Based on CBSE Class XII Political Science SQP 2025-26.','https://cbseacademic.nic.in/web_material/SQP/ClassXII_2025_26/PolSci-SQP.pdf'],
@@ -27,7 +28,7 @@ const online=[
  ['History','history-12',"CBSE's previous-year question paper page provides Class XII examination papers for subjects including History, Geography, English Core, Hindi Core and Political Science.",['True','False','Only for Class X','Only for vocational subjects'],0,"CBSE Previous Years' Question Papers.",'https://www.cbse.gov.in/cbsenew/question-paper.html']
 ];
 const make=(q,i)=>({id:'practice-seed-'+(i+1),format:'mcq',text:q[2],options:q[3],correct_index:q[4],explanation:q[5],subject:q[0],chapter_id:chapterId(q[0],q[1]),difficulty:i%3===0?'easy':i%3===1?'medium':'hard',qtype:'standard',marks:1,source:'practice',tags:['starter','practice']});
-const makeOnline=(q,i)=>({id:'online-feed-'+(i+1),format:'mcq',text:q[2],options:q[3],correct_index:q[4],explanation:q[5],subject:q[0],chapter_id:q[1],difficulty:i%3===0?'easy':i%3===1?'medium':'hard',qtype:'standard',marks:1,source:'ai_generated',reference:q[6],tags:['online-feed','cbse-reference']});
+const makeOnline=(q,i)=>({id:'online-feed-'+(i+1),format:'mcq',text:q[2],options:q[3],correct_index:q[4],explanation:q[5],subject:q[0],chapter_id:q[1],difficulty:i%3===0?'easy':i%3===1?'medium':'hard',qtype:'standard',marks:1,source:'ai_generated',reference:q[6],source_title:q[5],source_url:q[6],syllabus_version:'2025-26',verified:false,tags:['online-feed','cbse-reference']});
 export async function ensureQuestionBank(){
  const all=await db.all('questions'),existing=new Set(all.map(q=>q.id));
  for(let i=0;i<starter.length;i++){const q=make(starter[i],i);if(!existing.has(q.id))await db.put('questions',q);}
