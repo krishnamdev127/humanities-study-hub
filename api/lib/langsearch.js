@@ -46,7 +46,7 @@ export async function searchWeb(query,{maxResults=8,officialOnly=false}={}) {
   const payload={
     query:clean,
     freshness:"noLimit",
-    summary:true,
+    contents:{text:{max_characters:3000}},
     count:Math.min(50,Math.max(1,maxResults))
   };
 
