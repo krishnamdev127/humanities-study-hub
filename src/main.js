@@ -71,7 +71,7 @@ async function boot(){
       ['Answer writing',()=>import('./features/answer-writing.js').then(m=>m.initAnswerWriting())],
       ['Flashcards',()=>import('./features/flashcards/flashcards.js').then(m=>m.initFlashcards())],
       ['Revision',()=>import('./features/revision/revision.js').then(m=>m.initRevision())],
-      ['Analytics',()=>import('./features/analytics/analytics-runtime.js').then(m=>m.initAnalytics?.())],
+      ['Analytics',()=>import('./features/analytics/analytics-runtime.js?v=4').then(m=>m.initAnalytics?.())],
       ['Notes/resources',()=>import('./features/notes-resources.js').then(m=>m.initNotesResources())],
       ['Search',()=>import('./features/search.js').then(m=>m.initSearch())],
       ['Map practice',()=>import('./features/map-practice.js').then(m=>m.initMapPractice())],
