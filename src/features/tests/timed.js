@@ -1,6 +1,6 @@
 import {db} from '../../services/db.js';
 import {ensureQuestionBank} from '../../services/question-bank.js';
-import {SUBJ_KEYS} from '../../data/syllabus.js';
+import {SUBJ_KEYS,chapterById} from '../../data/syllabus.js';
 import {$,esc,toast} from '../../utils/dom.js';
 
 let questions=[];
@@ -20,7 +20,7 @@ function renderSetup(root){root.innerHTML=`
 </div><div class="test-preview" data-preview></div>
 <button class="btn solid" data-start>START TIMED TEST</button>`;
 const update=()=>{const subject=root.querySelector('[data-subject]').value,chapter=root.querySelector('[data-chapter]').value,diff=root.querySelector('[data-difficulty]').value;const n=Number(root.querySelector('[data-count]').value);const avail=questions.filter(q=>q.format==='mcq'&&!q.tags?.includes('meta')&&(!subject||q.subject===subject)&&(!chapter||q.chapter_id===chapter)&&(!diff||q.difficulty===diff)).length;root.querySelector('[data-preview]').textContent=`${avail} questions available · ${Math.min(n,avail)} will be selected · options will be randomized`};
-const chapter=root.querySelector('[data-chapter]');const fillChapters=()=>{const subject=root.querySelector('[data-subject]').value;const ids=[...new Set(questions.filter(q=>!subject||q.subject===subject).map(q=>q.chapter_id).filter(Boolean))];chapter.innerHTML='<option value="">All chapters</option>'+ids.map(id=>`<option value="${esc(id)}">${esc(id)}</option>`).join('');};root.querySelector('[data-subject]').onchange=()=>{fillChapters();update()};chapter.onchange=update;root.querySelector('[data-difficulty]').onchange=update;fillChapters();update();root.querySelector('[data-start]').onclick=()=>start(root);}
+const chapter=root.querySelector('[data-chapter]');const fillChapters=()=>{const subject=root.querySelector('[data-subject]').value;const ids=[...new Set(questions.filter(q=>!subject||q.subject===subject).map(q=>q.chapter_id).filter(Boolean))];chapter.innerHTML='<option value="">All chapters</option>'+ids.map(id=>{const ch=chapterById(id);return `<option value="${esc(id)}">${esc(ch?.name||id)}</option>`;}).join('');};root.querySelector('[data-subject]').onchange=()=>{fillChapters();update()};chapter.onchange=update;root.querySelector('[data-difficulty]').onchange=update;fillChapters();update();root.querySelector('[data-start]').onclick=()=>start(root);}
 async function start(root){
  const subject=root.querySelector('[data-subject]').value,chapter=root.querySelector('[data-chapter]').value,diff=root.querySelector('[data-difficulty]').value,n=Number(root.querySelector('[data-count]').value),duration=Number(root.querySelector('[data-time]').value);
  const pool=questions.filter(q=>q.format==='mcq'&&!q.tags?.includes('meta')&&(!subject||q.subject===subject)&&(!chapter||q.chapter_id===chapter)&&(!diff||q.difficulty===diff));
