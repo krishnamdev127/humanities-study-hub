@@ -6,9 +6,7 @@
     "start": "python3 -m http.server 8080",
     "test": "node --test tests/db.test.js tests/tracker.test.js"
   },
-  "dependencies": {
-    "duckduckgo-websearch": "^2.0.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "fake-indexeddb": "^6.0.0"
   }
