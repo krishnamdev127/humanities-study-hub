@@ -46,8 +46,8 @@ Keep every question strictly inside the requested subject/chapter/topic and avoi
     : JSON.stringify({subject:body.subject||"",chapter:body.chapter||"",topic:body.topic||"",count:Math.min(30,Math.max(1,Number(body.count)||10)),difficulty:body.difficulty||"mixed",questionType:body.questionType||"mcq",researchContext:body.researchContext||[]});
 
   const payload={
-    model:"gpt-5.6-mini",
-    tools:[{type:"web_search_preview"}],
+    model:"gpt-5.6-luna",
+    tools:[{type:"web_search"}],
     input:[{role:"system",content:system},{role:"user",content:input}]
   };
 
