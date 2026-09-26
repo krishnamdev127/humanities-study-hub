@@ -1,9 +1,9 @@
-/* DuckDuckGo search adapter.
-   Search is best-effort because DuckDuckGo web search is not an official SERP API.
-   Keep this module server-side only; never expose it to the browser.
+/* DuckDuckGo web-search adapter.
+   This stays server-side and is isolated so the provider can later be
+   replaced by SearXNG or another SERP provider without changing the app.
 */
 
-import { search } from "duck-duck-scrape";
+import {WebSearch} from "duckduckgo-websearch";
 
 const OFFICIAL_DOMAINS=[
   "cbseacademic.nic.in",
@@ -13,8 +13,8 @@ const OFFICIAL_DOMAINS=[
 
 const normalize=(item)=>({
   title:item?.title||"",
-  url:item?.url||"",
-  snippet:item?.description||item?.body||""
+  url:item?.link||item?.url||"",
+  snippet:item?.snippet||item?.description||""
 });
 
 const isOfficial=(url="")=>{
@@ -26,16 +26,20 @@ const isOfficial=(url="")=>{
 
 export async function searchWeb(query,{maxResults=8,officialOnly=false}={}){
   const clean=String(query||"").trim();
-  if(!clean) return [];
+  if(!clean)return [];
 
   const q=officialOnly
-    ? `${clean} (${OFFICIAL_DOMAINS.map(d=>`site:${d}`).join(" OR ")})`
+    ? `${clean} ${OFFICIAL_DOMAINS.map(d=>`site:${d}`).join(" OR ")}`
     : clean;
 
-  const response=await search(q);
-  const results=Array.isArray(response?.results)?response.results.map(normalize):[];
+  const searcher=new WebSearch();
+  const response=await searcher.search(q,{maxResults:Math.min(25,Math.max(1,maxResults))});
+  const results=Array.isArray(response)
+    ? response
+    : Array.isArray(response?.results) ? response.results : [];
 
   return results
+    .map(normalize)
     .filter(r=>r.url)
     .filter(r=>!officialOnly||isOfficial(r.url))
     .slice(0,Math.min(20,Math.max(1,maxResults)));
