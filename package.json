@@ -6,6 +6,9 @@
     "start": "python3 -m http.server 8080",
     "test": "node --test tests/db.test.js tests/tracker.test.js"
   },
+  "dependencies": {
+    "duck-duck-scrape": "^2.2.7"
+  },
   "devDependencies": {
     "fake-indexeddb": "^6.0.0"
   }
