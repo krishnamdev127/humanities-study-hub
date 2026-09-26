@@ -65,6 +65,21 @@ export const VERIFIED_SOURCES=[
 
 export const CURRENT_ACADEMIC_SESSION="2026-27";
 
+export const CURRENT_CURRICULUM_SOURCES={
+  History:"https://cbseacademic.nic.in/web_material/CurriculumMain27/SecPart2/History_SecP2_2026-27.pdf",
+  Geography:"https://cbseacademic.nic.in/web_material/CurriculumMain27/SecPart2/Geography_SecP2_2026-27.pdf",
+  "Political Science":"https://cbseacademic.nic.in/web_material/CurriculumMain27/SecPart2/PoliticalScience_SecP2_2026-27.pdf",
+  English:"https://cbseacademic.nic.in/web_material/CurriculumMain27/SecPart2/English_core_SecP2_2026-27.pdf"
+};
+
+export const RESEARCH_POLICY={
+  officialOnlyForCurriculum:true,
+  officialOnlyForPyq:true,
+  trustedSourcesMaySupplement:true,
+  generatedQuestionsMustBeLabeled:true,
+  liveResearchRequiredForCurrentClaims:true
+};
+
 export function sourcesFor(capability){
   return VERIFIED_SOURCES.filter(s=>s.capabilities.includes(capability))
     .sort((a,b)=>(SOURCE_PRIORITIES[a.tier]||99)-(SOURCE_PRIORITIES[b.tier]||99));
