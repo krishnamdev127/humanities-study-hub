@@ -71,11 +71,11 @@ async function boot(){
       ['Answer writing',()=>import('./features/answer-writing.js').then(m=>m.initAnswerWriting())],
       ['Flashcards',()=>import('./features/flashcards/flashcards.js').then(m=>m.initFlashcards())],
       ['Revision',()=>import('./features/revision/revision.js').then(m=>m.initRevision())],
-      ['Analytics',()=>import('./features/analytics/analytics.js?v=3').then(m=>m.initAnalytics?.())],
+      ['Analytics',()=>import('./features/analytics/analytics-runtime.js').then(m=>m.initAnalytics?.())],
       ['Notes/resources',()=>import('./features/notes-resources.js').then(m=>m.initNotesResources())],
       ['Search',()=>import('./features/search.js').then(m=>m.initSearch())],
       ['Map practice',()=>import('./features/map-practice.js').then(m=>m.initMapPractice())],
-      ['Test history',()=>import('./features/analytics/analytics.js?v=3').then(m=>m.renderTestHistory?.())],
+      ['Test history',()=>import('./features/analytics/analytics-runtime.js').then(m=>m.renderTestHistory?.())],
       ['Mock test',()=>import('./features/tests/mock.js').then(m=>m.initMockTest())],
       ['MCQ',()=>import('./features/mcq/mcq.js').then(m=>m.initMCQ())],
       ['Timed test',()=>import('./features/tests/timed.js').then(m=>m.initTimedTest())]
